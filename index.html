@@ -63,7 +63,8 @@
         <div class="carousel-container">
           <div class="carousel-slide">
             <!-- Substitua os SRCs pelas URLs das suas fotos -->
-            <img src="imagens/IMG_0010.jpg" class="active" />
+            <img src="imagens/WhatsApp Image 2026-04-16 at 21.16.38.jpg.jpeg" class="active" />
+            <img src="imagens/IMG_0010.jpg" />
             <img src="imagens/IMG_0011.jpg" />
             <img src="imagens/IMG_0013.jpg" />
             <img src="imagens/IMG_0043.jpg" />
@@ -71,7 +72,7 @@
             <img src="imagens/PHOTO-2026-01-18-11-02-59(1).jpg" />
             <img src="imagens/PHOTO-2026-01-18-11-02-59(2).jpg" />
             <img src="imagens/PHOTO-2026-01-18-11-03-00.jpg" />
-            <img src="imagens/WhatsApp Image 2026-04-16 at 21.16.38.jpg.jpeg" />
+            <img src="imagens/Germana e Cícilo.jpg" />
             <img src="imagens/WhatsApp Image 2026-04-16 at 21.16.39.jpg" />
           </div>
           <button class="prev" onclick="changeSlide(-1)">&#10094;</button>
@@ -144,7 +145,7 @@
           <div class="testi-author">
             <img src="imagens/WhatsApp Image 2026-04-16 at 21.16.38.jpg.jpeg" alt="Foto de Gislane" />
             <div class="author-info">
-              <strong>Gislaine Fernandes</strong>
+              <strong>Gislane Fernandes</strong>
               <span>Filha</span>
             </div>
           </div>
@@ -231,7 +232,7 @@
           <div class="testi-author">
             <img src="imagens/Cicilo.jpg" alt="Foto de Cicilo" />
             <div class="author-info">
-              <strong>Cícilo</strong>
+              <strong>Cecilio</strong>
               <span>Esposo</span>
             </div>
           </div>
@@ -243,14 +244,14 @@
       <!-- Botão de Ação para novos depoimentos -->
       <div class="add-testi">
         <a href="https://wa.me/5531993534321?text=Gostaria%20de%20deixar%20o%20meu%20Depoimento%20sobre%20a%20Germana!"
-          class="btn-secondary" target="_blank"
-        >
+          class="btn-secondary" target="_blank">
           Enviar meu relato
+          
         </a>
       </div>
     
     <!-- Botão WhatsApp Flutuante -->
-    <a
+    <br><a
       class="whatsapp-link"
       href="https://wa.me/5531993534321?text=Gostaria%20de%20deixar%20o%20meu%20Depoimento%20sobre%20a%20Germana!"
       target="_blank"
@@ -269,6 +270,82 @@
       >
     </footer>
 
+   <script>
+      document.getElementById('homenagemForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        const nome = document.getElementById('nome').value;
+        const parentesco = document.getElementById('parentesco').value;
+        const mensagem = document.getElementById('mensagem').value;
+        const fotoInput = document.getElementById('foto');
+        
+        let fotoUrl = "imagens/default-user.jpg"; // Imagem padrão caso não suba uma
+
+        if (fotoInput.files && fotoInput.files[0]) {
+          const reader = new FileReader();
+          reader.onload = function(event) {
+            fotoUrl = event.target.result;
+            criarCard(nome, parentesco, mensagem, fotoUrl);
+          };
+          reader.readAsDataURL(fotoInput.files[0]);
+        } else {
+          criarCard(nome, parentesco, mensagem, fotoUrl);
+        }
+
+        // Limpa o formulário
+        this.reset();
+        alert("Homenagem adicionada à tela!");
+      });
+
+      function criarCard(nome, parentesco, mensagem, foto) {
+        const container = document.getElementById('testimonials-container');
+        
+        const cardHTML = `
+          <div class="testimonials-grid">
+            <div class="testimonial-card">
+              <div class="quote-icon"><i class="fas fa-quote-left"></i></div>
+              <p>"${mensagem}"</p>
+              <div class="testi-author">
+                <img src="${foto}" alt="Foto de ${nome}" />
+                <div class="author-info">
+                  <strong>${nome}</strong>
+                  <span>${parentesco}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        `;
+        
+        // Adiciona o novo card no topo da lista
+        container.insertAdjacentHTML('afterbegin', cardHTML);
+      }
+    </script>
+
     <script src="script.js"></script>
   </body>
+
+  <script type="module">
+  // Import the functions you need from the SDKs you need
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.12.0/firebase-app.js";
+  import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.12.0/firebase-analytics.js";
+  // TODO: Add SDKs for Firebase products that you want to use
+  // https://firebase.google.com/docs/web/setup#available-libraries
+
+  // Your web app's Firebase configuration
+  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+  const firebaseConfig = {
+    apiKey: "AIzaSyAjXNIu1Iq2lw3zhk61qzsoe3LWwkRRvo4",
+    authDomain: "memorial-germana.firebaseapp.com",
+    databaseURL: "https://memorial-germana-default-rtdb.firebaseio.com",
+    projectId: "memorial-germana",
+    storageBucket: "memorial-germana.firebasestorage.app",
+    messagingSenderId: "429434563773",
+    appId: "1:429434563773:web:912e11596f675005731bd4",
+    measurementId: "G-8KKWFEGTHG"
+  };
+
+  // Initialize Firebase
+  const app = initializeApp(firebaseConfig);
+  const analytics = getAnalytics(app);
+</script>
 </html>
